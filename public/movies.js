@@ -52,24 +52,15 @@ function setChooseMovie() {
     // if (chooseMovie === 1 || chooseMovie === 2 || chooseMovie === 3 || chooseMovie === 4 || chooseMovie === 5){
     chooseMovie = Number(PROMPT.question(`\nWhat would you like to do? \n1. Rate: Happy Death Day 2U
             \n2. Rate: Cold Pursuit \n3. Rate: The Upside \n4. Choose a new movie to rate \n 5. Rank movies`));
-    while (chooseMovie = 1)
-        PROMPT.question(`Please enter a rating for Happy Death Day 2U (1-10): `);
-    if (chooseMovie < MIN_RATING || chooseMovie > MAX_RATING) {
-        console.log(`${chooseMovie} is invalid. Please try again.`);
-    }
-    break;
-    while (chooseMovie = 2)
-        PROMPT.question(`Please enter a rating for Cold Pursuit (1-10): `);
-    if (chooseMovie < MIN_RATING || chooseMovie > MAX_RATING) {
-        console.log(`${chooseMovie} is invalid. Please try again.`);
-    }
-    break;
-    while (chooseMovie = 3)
-        PROMPT.question(`Please enter a rating for The Upside (1-10): `);
-    if (chooseMovie < MIN_RATING || chooseMovie > MAX_RATING) {
-        console.log(`${chooseMovie} is invalid. Please try again.`);
-    }
-    break;
+    while (chooseMovie = 1){
+setHappyDeathDay();
+   // break;}
+    while (chooseMovie = 2){
+        setColdPursuit();
+    // break;}
+    while (chooseMovie = 3){
+       setTheUpside();
+    // break;}
     /*while (chooseMovie = 4)
         movieTitle = PROMPT.question(`Please enter a movie title: `);
         PROMPT.question(`Please enter a rating for this movie (1-10): `);
@@ -78,7 +69,28 @@ function setChooseMovie() {
     }*/
 
 // }
+}}
+
+function setHappyDeathDay() {
+    PROMPT.question(`Please enter a rating for Happy Death Day 2U (1-10): `);
+    if (chooseMovie < MIN_RATING || chooseMovie > MAX_RATING) {
+        console.log(`${chooseMovie} is invalid. Please try again.`);
+    }
 }
+
+function setColdPursuit() {
+    PROMPT.question(`Please enter a rating for Cold Pursuit (1-10): `);
+    if (chooseMovie < MIN_RATING || chooseMovie > MAX_RATING) {
+        console.log(`${chooseMovie} is invalid. Please try again.`);
+    }
+}
+
+function setTheUpside() {
+    PROMPT.question(`Please enter a rating for The Upside (1-10): `);
+    if (chooseMovie < MIN_RATING || chooseMovie > MAX_RATING) {
+        console.log(`${chooseMovie} is invalid. Please try again.`);
+    }
+}}}
 
 /**
  * @method
