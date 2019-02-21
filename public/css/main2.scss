@@ -1,0 +1,96 @@
+@import "foundation";
+@import "variables";
+@import "overrides";
+
+
+  @font-face {
+    font-family: "Junction-Regular";
+
+    src: url("../fonts/Junction-regular.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+.container{
+  font-family: "Junction-Regular";
+}
+  .tab {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  p {
+    color: ghostwhite;
+    font-size: 40px;
+  }
+
+  #content{
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    order:2;
+    flex-wrap: wrap;
+  }
+
+  #logo{
+    justify-content: center;
+    margin-left: 27.3%;
+  }
+
+  #title{
+    width: 1000px;
+  }
+
+  .container{
+    margin:1%;
+  }
+
+  #home{
+    width:100px;
+    height: 50px;
+    align-self: end;
+    float: right;
+    margin-top: -6%;
+  }
+
+  #left{
+    order:1;
+  }
+
+  #top{
+    margin-left: 27%;
+  }
+
+  #bottom{
+    margin-top:26%;
+  }
+
+  .info{
+    background-color: #0061fc;
+    a:hover{
+      background-color: #00cafc;
+    }
+  }
+
+  #out-cont{
+    background-image: linear-gradient(#0092ff, #ffffff);
+  }
+
+  //Media Queries
+  @media only screen and (min-width: 628px) and (max-width: 832px){
+    #top{
+      margin-left: 0;
+    }
+
+    #logo{
+      margin-left: 0;
+    }
+  }
+
+  @media only screen and (min-width: 3px) and (max-width: 627px){
+    #logo{
+      margin-left:0;
+    }
+  }
+

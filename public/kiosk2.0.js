@@ -10,7 +10,8 @@ const PROMPT = require(`readline-sync`);
 const IO = require('fs');  // For file I/O
 
 let continueResponse;
-let numRatings, menuChoice, HDDRating, CPRating, TURating, title, NMRating, HDDAvg, CPAvg, TUAvg;
+let menuChoice, HDDRating, CPRating, TURating, title, NMRating, HDDAvg, CPAvg, TUAvg,
+HDDTotal, CPTotal, TUTotal;
 let HDDNum = 0, CPNum = 0, TUNum = 0, NMNum = 0;
 let ratings = [];
 const MIN_RATING = 1, MAX_RATING = 5;
@@ -21,6 +22,7 @@ const MIN_RATING = 1, MAX_RATING = 5;
  * @return (null)
  */
 function  main(){
+    loadRatings();
     setContinueResponse();
     while (continueResponse === 1) {
         setMenuChoice();
@@ -33,12 +35,14 @@ function  main(){
                 break;
             case 4: setNewMovie();
                 break;
-            case 5: rankMovies();
+            case 5:  setAvgHDD();setAvgCP();setAvgTU();rankMovies();
                 break;
+            default: console.log(`! ERROR !`);
         }
         setContinueResponse();
     }
-    }
+    writeRatings();
+}
 
 main();
 
@@ -94,6 +98,7 @@ function setMenuChoice() {
 function setHappyDeathDay() {
         HDDRating = PROMPT.question(`Please enter a rating for Happy Death Day 2U (1-5): `);
         HDDNum++;
+        HDDTotal = HDDNum + HDDTotal;
         console.log(`${HDDNum}`);
     while (HDDRating !== null && HDDRating < MIN_RATING || HDDRating > MAX_RATING) {
         console.log(`${HDDRating} is invalid. Please try again.`);
@@ -104,6 +109,7 @@ function setHappyDeathDay() {
 function setColdPursuit() {
         CPRating = PROMPT.question(`Please enter a rating for Cold Pursuit (1-5): `);
         CPNum++;
+        CPTotal = CPNum + CPTotal;
     while (CPRating !== null && CPRating < MIN_RATING || CPRating > MAX_RATING) {
         console.log(`${CPRating} is invalid. Please try again.`);
         CPRating = PROMPT.question(`Please enter a rating for Cold Pursuit (1-5): `);
@@ -113,24 +119,24 @@ function setColdPursuit() {
 function setTheUpside() {
         TURating = PROMPT.question(`Please enter a rating for The Upside (1-5): `);
         TUNum++;
+        TUTotal = TUNum + TUTotal;
     while (TURating !== null && TURating < MIN_RATING ||TURating > MAX_RATING) {
         console.log(`${TURating} is invalid. Please try again.`);
         TURating = PROMPT.question(`Please enter a rating for The Upside (1-5): `);
     }
 }
 
-/*
 function setAvgHDD() {
-    HDDAvg =  / HDDNum;
+    HDDAvg = HDDTotal / HDDNum;
 }
 
 function setAvgCP() {
-    CPAvg = / CPNum;
+    CPAvg = CPTotal / CPNum;
 }
 
 function setAvgTU() {
-    TUAvg = / TUNum;
-}*/
+    TUAvg = TUTotal / TUNum;
+}
 
 function setNewMovie() {
     title = PROMPT.question(`\nPlease enter a movie title: `);
@@ -161,4 +167,23 @@ function rankMovies() {
     else if (TUAvg > HDDAvg && HDDAvg > CPAvg){
         console.log(`\nThe Upside- Avg ${TUAvg}\nHappy Death Day 2U- Avg: ${HDDAvg}\nCold Pursuit- Avg: ${CPAvg}`);
     }
+}
+
+function writeRatings() {
+    const COLUMNS = 5;
+    for (let i = 0; i < ratings.length; i++) {
+        if (ratings[i]) {
+            for (let j = 0; j < COLUMNS; j++) {
+                if (j < COLUMNS - 1) {
+                    IO.appendFileSync(`data/dataX.csv`, `${ratings[i][j]},`);
+                } else if (i < ratings.length - 1) {
+                    IO.appendFileSync(`data/dataX.csv`, `${ratings[i][j]}\n`);
+                } else {
+                    IO.appendFileSync(`data/dataX.csv`, `${ratings[i][j]}`);
+                }
+            }
+        }
+    }
+    IO.unlinkSync(`data/movie-data.csv`);
+    IO.renameSync(`data/dataX.csv`, `data/movie-data.csv`);
 }
